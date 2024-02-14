@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admission Form</title>
+  <style>
+    /* CSS for Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: hsl(0, 0%, 20%);
+      padding: 20px 20px;
+      color: white;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-logo img {
+      height: 100px;
+      margin-right: 5px;
+    }
+
+    .navbar-title {
+      font-size: 2.2rem;
+    }
+
+    .navbar-menu {
+      display: flex;
+      gap: 20px;
+    }
+    .navbar-menu a {
+      color: white; /* Change the color of menu links to white */
+      text-decoration: none;
+    }
+    .navbar-menu a:hover {
+      color: #FFD700; /* Change the color on hover */
+    }
+
+    /* CSS for Sections */
+    .sections {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .section {
+      flex: 1;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+
+    /* CSS for Footer */
+    .footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 50px 0;
+    }
+
+    /* Other Styles */
+    .container {
+      width: 60%;
+      margin: auto;
+      margin-top: 50px;
+    }
+
+    form {
+      font-family: Arial, sans-serif;
+      color: #333;
+      display: inline-block; /* Display as inline block */
+      text-align: center; /* Align form contents to left */
+      width: 100%; /* Adjust the width as needed */
+    }
+
+    input[type='text'],
+    input[type='number'],
+    input[type='email'],
+    textarea {
+      width: 60%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      margin-top: 6px;
+      margin-bottom: 20px;
+      resize: vertical;
+    }
+
+    input[type='submit'] {
+      background-color: #4caf50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      cursor: pointer;
+    }
+
+    input[type='submit']:hover {
+      background-color: #45a049;
+    }
+
+    /* CSS for Hero Section */
+    .hero {
+      background-image: url('your-background-image.jpg'); /* Replace 'your-background-image.jpg' with your image path */
+      background-size: cover;
+      height: 100%;
+      background-position: center;
+      color: white;
+      padding: 260px 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-logo">
+      <img src="your-logo.png" alt="Logo">
+      <div class="navbar-title">The Indian University</div>
+    </div>
+    <div class="navbar-menu">
+      <a href="#about">About Us</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#contacts">Contact Us</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>Welcome to our Institution</h1>
+    <p>Enter the following details to apply for admission.</p>
+  </div>
+
+  <div class="container">
+    <form id="contactForm">
+      <h2>Admission Form</h2>
+      <label for="name">Student's Name:</label><br />
+      <input type="text" id="name" /><br />
+      <label for="mar1">Class 10 Marks:</label><br />
+      <input type="number" id="mar1" placeholder="In percentage.."/><br />
+      <label for="mar2">Class 12 Marks:</label><br />
+      <input type="number" id="mar2" placeholder="In percentage.."/><br />
+      <label for="extra">Extra-curricular Activity:</label><br />
+      <input type="text" id="extra" placeholder="Type N.A if not applicable.."/><br />
+      <label for="email">Email:</label><br />
+      <input type="email" id="email" /><br />
+      <input type="submit" value="Send" />
+    </form>
+  </div>
+
+  <div class="footer">
+    &copy; The Indian University. All rights reserved.
+  </div>
+
+  <script>
+    const contactForm = document.getElementById('contactForm');
+    const nameInput = document.getElementById('name');
+    const markstenInput = document.getElementById('mar1');
+    const markstwelveInput = document.getElementById('mar2');
+    const extracurricularInput = document.getElementById('extra');
+    const emailInput = document.getElementById('email');
+    contactForm.addEventListener('submit', async e => {
+        e.preventDefault();
+         // Parse m1 and m2 as integers
+      const m1 = parseInt(markstenInput.value);
+      const m2 = parseInt(markstwelveInput.value);
+        await fetch('/send-message', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: nameInput.value,
+            m1: m1,
+            m2: m2,
+            extracurricular: extracurricularInput.value,
+            email: emailInput.value,
+          }),
+        });
+        nameInput.value = '';
+        markstenInput.value= '';
+        markstwelveInput.value= '';
+        extracurricularInput.value= '';
+        emailInput.value = '';
+      });
+    </script>
+</body>
+</html>
+
+
