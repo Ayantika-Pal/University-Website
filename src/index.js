@@ -7,8 +7,8 @@ import sheets, { SHEET_ID } from './sheetClient.js';
 const app = express();
 const contactFormSchema = z.object({
   name: z.string().min(1, { message: 'Name is required' }),
-  m1: z.number().int(),
-  m2: z.number().min(),
+  m1: z.string(), // Accepts string input for m1
+  m2: z.string(), // Accepts string input for m2
   extracurricular: z.string().min(1, { message: 'Type N.A if not applicable' }),
   email: z.string().email(),
 });
@@ -18,7 +18,6 @@ app.use(express.static('public'));
 app.post('/send-message', async (req, res) => {
   try {
     const body = contactFormSchema.parse(req.body);
-
     // Object to Sheets
     const rows = Object.values(body);
     console.log(rows);

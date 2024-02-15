@@ -78,7 +78,6 @@
     }
 
     input[type='text'],
-    input[type='number'],
     input[type='email'],
     textarea {
       width: 60%;
@@ -138,9 +137,9 @@
       <label for="name">Student's Name:</label><br />
       <input type="text" id="name" /><br />
       <label for="mar1">Class 10 Marks:</label><br />
-      <input type="number" id="mar1" placeholder="In percentage.."/><br />
+      <input type="text" id="mar1" placeholder="In percentage.."/><br />
       <label for="mar2">Class 12 Marks:</label><br />
-      <input type="number" id="mar2" placeholder="In percentage.."/><br />
+      <input type="text" id="mar2" placeholder="In percentage.."/><br />
       <label for="extra">Extra-curricular Activity:</label><br />
       <input type="text" id="extra" placeholder="Type N.A if not applicable.."/><br />
       <label for="email">Email:</label><br />
@@ -162,9 +161,6 @@
     const emailInput = document.getElementById('email');
     contactForm.addEventListener('submit', async e => {
         e.preventDefault();
-         // Parse m1 and m2 as integers
-      const m1 = parseInt(markstenInput.value);
-      const m2 = parseInt(markstwelveInput.value);
         await fetch('/send-message', {
           method: 'POST',
           headers: {
@@ -172,8 +168,8 @@
           },
           body: JSON.stringify({
             name: nameInput.value,
-            m1: m1,
-            m2: m2,
+            m1: markstenInput.value.toString(),
+            m2: markstwelveInput.value.toString(),
             extracurricular: extracurricularInput.value,
             email: emailInput.value,
           }),
